@@ -11,9 +11,9 @@ public class MainParte2 {
         SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         Session session = factory.openSession();
 
-        System.out.println("Secuencia da Parte 2 executada:");
+        System.out.println("Secuencia da Parte 2 hecha:");
 
-        // 1 y 2. Inserir 10 pokemons e 2 adestradores[cite: 13]
+        //Inserir 10 pokemons e 2 entrenadores
         Transaction tx = session.beginTransaction();
         for (int i = 1; i <= 10; i++) {
             session.save(new Pokedex("Pokemon_P2_" + i, 20.0 + i, "Misc_" + i));
@@ -25,7 +25,7 @@ public class MainParte2 {
         listarPokedex(session, "Pokedex tras inserción");
         listarAdestradores(session, "Adestradores tras inserción");
 
-        // 3. Modificar dous adestradores e dúas entradas na pokedex[cite: 13]
+        //Modificar
         tx = session.beginTransaction();
         List<Adestrador> ads = session.createQuery("FROM Adestrador", Adestrador.class).setMaxResults(2).getResultList();
         for (Adestrador a : ads) {
@@ -41,17 +41,17 @@ public class MainParte2 {
         }
         tx.commit();
 
-        // 4. Listar despois de modificar[cite: 13]
+        //Listar 
         System.out.println("\n--- Listados previos a XML ---");
         List<Pokedex> pokemonsXML = session.createQuery("FROM Pokedex", Pokedex.class).getResultList();
         List<Adestrador> adestradoresXML = session.createQuery("FROM Adestrador", Adestrador.class).getResultList();
         pokemonsXML.forEach(System.out::println);
         adestradoresXML.forEach(System.out::println);
 
-        // 5. toXML pokemons e adestradores[cite: 13]
+        //toXML 
         toXML(pokemonsXML, adestradoresXML);
 
-        // 6. Eliminar tódo-los datos das táboas[cite: 13]
+        //Borrar
         tx = session.beginTransaction();
         session.createQuery("DELETE FROM Adestrador").executeUpdate();
         session.createQuery("DELETE FROM Pokedex").executeUpdate();
