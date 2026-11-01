@@ -11,17 +11,17 @@ public class MainParte1 {
 
         System.out.println("Secuencia executada con obxectos e métodos hibernate:");
 
-        // 1. Inserir 10 pokemons na tabla pokedex
+        //Inserir 
         Transaction tx = session.beginTransaction();
         for (int i = 1; i <= 10; i++) {
             session.save(new Pokedex("Pokemon_" + i, 15.5 + i, "Misc_" + i));
         }
         tx.commit();
 
-        // 2. Listar pokemons na pokedex
+        //Listar
         listar(session, "Listado tras insertar 10 pokemons:");
 
-        // 3. Modificar duas entradas na pokedex (una con objeto, otra con HQL)
+        //Modificar 
         tx = session.beginTransaction();
         Pokedex p1 = session.get(Pokedex.class, 1);
         if (p1 != null) {
@@ -31,10 +31,10 @@ public class MainParte1 {
         session.createQuery("UPDATE Pokedex SET nome = 'Charmeleon_Mod' WHERE id = 12").executeUpdate();
         tx.commit();
 
-        // 4. Listar pokemons na pokedex
+        //Listar
         listar(session, "Listado tras modificaciones:");
 
-        // 5. Eliminar tódo-los pokemons na pokedex
+        //Eliminar
         tx = session.beginTransaction();
         session.createQuery("DELETE FROM Pokedex").executeUpdate();
         tx.commit();
@@ -50,6 +50,5 @@ public class MainParte1 {
         for (Pokedex p : pokemons) {
             System.out.println(p);
         }
-        System.out.println("----------------------------------------\n");
     }
 }
